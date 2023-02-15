@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Logo.module.scss";
+import Link from "next/link";
 
 const Logo = ({ option, isFlipped }: any) => {
   
@@ -20,9 +21,9 @@ const Logo = ({ option, isFlipped }: any) => {
 
   return (
     <div className={`${styles.logo} ${styles[isFlipped ? "flipped" : '']}`}>
-      <h3>
+     <Link href='/'>
         fish<span style={{ color: `${sufixColor}` }}>{sufix}</span>
-      </h3>
+      </Link>
     </div>
   );
 };

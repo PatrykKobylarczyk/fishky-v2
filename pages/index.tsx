@@ -3,8 +3,10 @@ import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
 import Button from "components/Button/Button";
+import useAuth from "hooks/useAuth";
 
 export default function Home() {
+  const { logout } = useAuth();
   return (
     <>
       <Head>
@@ -14,6 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <button onClick={logout}>logout</button>
         <Flashcard>
           <div className={styles.options}>
             <Button

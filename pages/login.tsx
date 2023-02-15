@@ -3,10 +3,32 @@ import Head from "next/head";
 import styles from "../styles/Login.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
 import Button from "components/Button/Button";
+import { useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form/dist/types";
+import useAuth from "hooks/useAuth";
+
+interface Inputs {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
+  const [login, setLogin] = useState(false);
   const [error, setError] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const { signIn, signUp } = useAuth();
 
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+    if (login) {
+      await signIn(email, password);
+    } else {
+      await signUp(email, password);
+    }
+  };
   return (
     <>
       <Head>
@@ -18,41 +40,41 @@ const Login = () => {
       <main className={styles.main}>
         <Flashcard>
           <h1 className={styles.header}>Sign In</h1>
-          <form
-            className={styles.form}
-            //   onSubmit={newCardHandler}
-          >
-            <input
-              type="email"
-              name="email"
-              placeholder="email"
-              //   onChange={(e) => setWord(e.target.value)}
-            ></input>
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              //   onChange={(e) => setDescription(e.target.value)}
-            ></input>
-            <Button
-              buttonType="submit"
-              buttonPath="/"
-              btnHandler={() => {}}
-              buttonText="sign in"
-            />
-            {error && <p>fill both inputs</p>}
-          </form>
-          <div className={styles.signup}>
+          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <span>New to fishky?</span>
-              <button
-                type="submit"
-                // onClick={() => setLogin(false)}
-              >
-                Sign up now.
-              </button>
+              <label htmlFor=""></label>
+              <input
+                type="email"
+                placeholder="email"
+                {...register("email", { required: true })}
+              />
+              {errors.email && <p>Please enter a valid email.</p>}
             </div>
-          </div>
+
+            <div>
+              <label htmlFor=""></label>
+              <input
+                type="password"
+                placeholder="password"
+                {...register("password", { required: true })}
+              />
+              {errors.password && (
+                <p>Your password must contain at least 4 characters.</p>
+              )}
+            </div>
+            <button type="submit" onClick={() => setLogin(true)}>
+              sign in
+            </button>
+            {error && <p>fill both inputs</p>}
+            <div className={styles.signup}>
+              <div>
+                <span>New to fishky?</span>
+                <button type="submit" className={styles.signUpBtn} onClick={() => setLogin(false)}>
+                  Sign up now.
+                </button>
+              </div>
+            </div>
+          </form>
         </Flashcard>
       </main>
     </>
