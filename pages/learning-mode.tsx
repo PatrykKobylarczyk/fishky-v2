@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "../styles/Learn.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
 
-export default function Learn() {
+export default function LearningMode() {
 
   return (
     <>

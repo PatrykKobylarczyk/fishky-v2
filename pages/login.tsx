@@ -3,9 +3,8 @@ import Head from "next/head";
 import styles from "../styles/Login.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
 import Button from "components/Button/Button";
-import { url } from "inspector";
 
-const login = () => {
+const Login = () => {
   const [error, setError] = useState(false);
 
   return (
@@ -60,4 +59,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
