@@ -1,0 +1,17 @@
+.logo{
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    pointer-events: none;
+    backface-visibility: hidden;
+
+    h3{
+        color: var(--foreground-hex)
+    }
+    
+    span{
+        color: var(--primary-color);
+        font-family: inherit;
+        font-weight: 800;
+    }
+}

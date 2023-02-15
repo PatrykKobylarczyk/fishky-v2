@@ -1,0 +1,11 @@
+.options{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 1rem;
+}
+@media (max-width: 720px){
+    .options{
+        width: 250px;
+    }
+}

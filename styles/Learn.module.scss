@@ -1,0 +1,30 @@
+.front,
+.back {
+  backface-visibility: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.front {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.back {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
+}
+@media (max-width: 720px){
+  .buttons{
+      width: 250px;
+  }
+}

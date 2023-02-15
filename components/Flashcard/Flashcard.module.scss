@@ -1,0 +1,33 @@
+.card {
+  margin: 10px auto;
+  background: linear-gradient(145deg, rgb(39, 37, 37), rgb(43, 42, 42));
+  height: 600px;
+  width: 400px;
+  display: grid;
+  place-items: center;
+  font-weight: 400;
+  border-radius: 25px;
+  box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.4);
+  position: relative;
+  /* animated interactivity */
+  transition: 0.3;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateY(0);
+}
+
+/* when card is clicked adding .flipped class */
+.flipped {
+  transform: rotateY(-180deg);
+}
+
+@media (max-width: 720px){
+  .card{
+      width: 320px;
+  }
+}
+
+@media (max-width: 450px){
+  .card{
+      width: 300px;
+  }
+}
