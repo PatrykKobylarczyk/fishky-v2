@@ -21,7 +21,7 @@ export default function Learn() {
             <Button
               buttonType="button"
               buttonText="start"
-              buttonPath="/learningMode"
+              buttonPath="/learning-mode"
             />
           </div>
         </Flashcard>

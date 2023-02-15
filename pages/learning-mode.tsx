@@ -16,7 +16,7 @@ export default function LearningMode() {
       <main className={styles.main}>
         <Flashcard type='learn'>
           <h1 className={styles.front}>Save my world</h1>
-          <h2 className={styles.back}>it's to late</h2>
+          <h2 className={styles.back}>it&apos;s to late</h2>
         </Flashcard>
       </main>
     </>
