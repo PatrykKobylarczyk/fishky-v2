@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Head from "next/head";
 import styles from "../styles/Login.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
-import Button from "components/Button/Button";
 import { useForm } from "react-hook-form";
 import { SubmitHandler } from "react-hook-form/dist/types";
 import useAuth from "hooks/useAuth";

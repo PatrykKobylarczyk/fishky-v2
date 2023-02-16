@@ -6,7 +6,8 @@ import Button from "components/Button/Button";
 import useAuth from "hooks/useAuth";
 
 export default function Home() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
+
   return (
     <>
       <Head>

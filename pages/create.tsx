@@ -6,11 +6,12 @@ import Category from "components/Category/Category";
 import Button from "components/Button/Button";
 
 export default function Create() {
+  
   const [word, setWord] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
   const [btnPath, setBtnPath] = useState("");
-
+  const [category, setCategory] = useState(null)
   const handleNewCard = () => {
     if (!word || !description) {
       setError(true);

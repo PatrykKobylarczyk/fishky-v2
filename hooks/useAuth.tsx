@@ -5,10 +5,10 @@ import {
   signOut,
   User,
 } from "firebase/auth";
-
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { auth } from "../firebase";
+import { db, auth } from "../firebase";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 interface IAuth {
   user: User | null;
@@ -59,16 +59,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     [auth]
   );
 
-  console.log(user)
 
   const signUp = async (email: string, password: string) => {
     setLoading(true);
+  
 
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential): any => {
         setUser(userCredential.user);
         router.push("/");
         setLoading(false);
+        console.log(userCredential.user)
+        // return addDoc(collection(db, 'users'), {category: 'not yet'})
+        return setDoc(doc(db, 'users', `${userCredential.user.email}`), {category: 'not yet'})
       })
       .catch((error) => alert(error.messege))
       .finally(() => setLoading(false));
