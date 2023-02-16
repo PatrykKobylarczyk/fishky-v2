@@ -17,7 +17,24 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <button onClick={logout}>logout</button>
+        <button
+          onClick={logout}
+          style={{
+            position: "absolute",
+            top: "50%",
+            right: "10%",
+            transform: 'translateY(-50%)',
+            background: "#f0032b",
+            width: "80px",
+            height: "80px",
+            boxShadow: "box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.25);",
+            borderRadius: "50%",
+            color: "#fff",
+            cursor: 'pointer'
+          }}
+        >
+          logout
+        </button>
         <Flashcard>
           <div className={styles.options}>
             <Button
