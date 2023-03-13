@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
-
 import styles from "./Category.module.scss";
+import { useRouter } from "next/router";
 
+// options to select in creating mode
 const options = [
   { value: "english", label: "english" },
   { value: "react", label: "react" },
   { value: "add new...", label: "add new..." },
 ];
+
+interface SelectOptionType {
+  value: string;
+  label: string;
+}
 
 const colourStyles = {
   control: (styles: any) => ({
@@ -32,6 +38,9 @@ const colourStyles = {
   indicatorSeparator: () => ({
     display: "none",
   }),
+  arrow: () => ({
+    color: "white",
+  }),
   menu: () => ({
     background: "rgb(255, 255, 255)",
     borderRadius: "10px",
@@ -45,21 +54,70 @@ const colourStyles = {
   }),
 };
 
-const Category = ({ selectedCategory, setSelectedCategory }: any) => {
-  console.log(options);
+const Category = ({ category, setCategory, newCategory, setOptions }: any) => {
+  const router = useRouter();
+ 
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setSelectedCategory(event.currentTarget.value);
+  const getOptions = async () => {
+    if (options.length == 0) {
+      setOptions([
+        {
+          value: "add new...",
+          label: "add new...",
+        },
+      ]);
+    }
+
+    if (options.length > 0) {
+      setOptions(options);
+    }
+
+    //adds add new... category every time on the last position in options
+    if (options.length > 0 && router.pathname === "/create") {
+      setOptions([
+        ...options,
+        {
+          value: "add new...",
+          label: "add new...",
+        },
+      ]);
+    }
+    if ( newCategory &&
+      options.filter((option) => option.value === newCategory).length === 0 
+     
+    ) {
+      setOptions([
+        ...options,
+        {
+          value: newCategory,
+          label: newCategory,
+        },
+      ]);
+    }
   };
+
+  useEffect(() => {
+    getOptions()
+  }, []);
+
+  const handleChange = (option: SelectOptionType | null) => {
+    if (option) {
+      setCategory(option.value);
+    }
+    if (option?.value === "add new...") {
+    }
+  };
+
 
   return (
     <div className={styles.select}>
       <Select
-        value={selectedCategory}
+        value={category}
         options={options}
         styles={colourStyles}
         onChange={handleChange}
-        placeholder={selectedCategory}
+        placeholder={category}
+        isClearable
       />
     </div>
   );

@@ -69,8 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setUser(userCredential.user);
         router.push("/");
         setLoading(false);
-        console.log(userCredential.user)
-        return setDoc(doc(db, 'users', `${userCredential.user.email}`), {category: 'not yet'})
+        // return setDoc(doc(db, 'users', `${userCredential.user.email}`), {category: 'not yet'})
       })
       .catch((error) => alert(error.messege))
       .finally(() => setLoading(false));

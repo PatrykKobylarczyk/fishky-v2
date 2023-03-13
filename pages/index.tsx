@@ -3,11 +3,8 @@ import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
 import Button from "components/Button/Button";
-import useAuth from "hooks/useAuth";
 
 export default function Home() {
-  const { logout, user } = useAuth();
-
   return (
     <>
       <Head>
@@ -17,24 +14,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <button
-          onClick={logout}
-          style={{
-            position: "absolute",
-            top: "50%",
-            right: "10%",
-            transform: 'translateY(-50%)',
-            background: "#f0032b",
-            width: "80px",
-            height: "80px",
-            boxShadow: "box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.25);",
-            borderRadius: "50%",
-            color: "#fff",
-            cursor: 'pointer'
-          }}
-        >
-          logout
-        </button>
         <Flashcard>
           <div className={styles.options}>
             <Button

@@ -15,10 +15,7 @@
   transform: perspective(1000px) rotateY(0);
 }
 
-/* when card is clicked adding .flipped class */
-.flipped {
-  transform: rotateY(-180deg);
-}
+
 
 @media (max-width: 720px){
   .card{

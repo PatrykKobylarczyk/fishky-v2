@@ -4,18 +4,34 @@ import styles from "../styles/Create.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
 import Category from "components/Category/Category";
 import Button from "components/Button/Button";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import useAuth from "hooks/useAuth";
 
 export default function Create() {
-  
-  const [word, setWord] = useState("");
-  const [description, setDescription] = useState("");
+  const [front, setFront] = useState("");
+  const [back, setBack] = useState("");
   const [error, setError] = useState(false);
   const [btnPath, setBtnPath] = useState("");
-  const [category, setCategory] = useState(null)
-  const handleNewCard = () => {
-    if (!word || !description) {
+  const [category, setCategory] = useState("select category...");
+  const [newCategory, setNewCategory] = useState("");
+  const [options, setOptions] = useState<any[]>([]);
+  const { user } = useAuth();
+
+  const handleNewCard = async () => {
+    if (!front || !back) {
       setError(true);
-      setBtnPath('')
+    }
+    if (front && back) {
+      setError(false);
+      const cardsRef = collection(db, "users", user!.email!, category);
+      await setDoc(doc(cardsRef), {
+        front: front,
+        back: back,
+      });
+      setFront("");
+      setBack("");
+      setBtnPath("/");
     }
   };
 
@@ -30,26 +46,44 @@ export default function Create() {
       <main className={styles.main}>
         <Flashcard>
           <form className={styles.form} onSubmit={handleNewCard}>
-            <Category />
+            {category !== "add new..." ? (
+              <Category
+                category={category}
+                setCategory={setCategory}
+                newCategory={newCategory}
+                setOptions={setOptions}
+                cardType="learn"
+              />
+            ) : (
+              <input
+                type="text"
+                name="category"
+                placeholder=" enter new category..."
+                className={styles.category}
+                onChange={(e) => setNewCategory(e.target.value)}
+              ></input>
+            )}
             <input
               type="text"
               name="front"
               placeholder=" enter front..."
               className={styles.front}
-              onChange={(e) => setWord(e.target.value)}
+              onChange={(e) => setFront(e.target.value)}
             ></input>
             <input
               type="text"
               name="reverse"
               placeholder="enter reverse..."
               className={styles.back}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => setBack(e.target.value)}
             ></input>
             <Button
               buttonType="submit"
               buttonPath={btnPath}
               buttonText="create"
+              btnHandler={handleNewCard}
             />
+            {/* <button type="submit">create</button> */}
             {error && <p>fill both inputs</p>}
           </form>
         </Flashcard>
