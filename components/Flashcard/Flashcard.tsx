@@ -24,7 +24,7 @@ const Flashcard = ({ children, type }: any) => {
       <motion.div
         className={styles.card}
         onClick={() => type === "learn" && setIsFlipped((prev) => !prev)}
-        animate={isFlipped ? cardVariants.clicked : cardVariants.notClicked}
+        // animate={isFlipped ? cardVariants.clicked : cardVariants.notClicked}
       >
         <Logo isFlipped={isFlipped} />
         {children}
