@@ -7,6 +7,8 @@ import Button from "components/Button/Button";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import useAuth from "hooks/useAuth";
+import PrevArrow from "components/Arrows/PrevArrow";
+import NextArrow from "components/Arrows/NextArrow";
 
 export default function Learn() {
   const { user } = useAuth();
@@ -43,6 +45,27 @@ export default function Learn() {
     }
   };
 
+  const handleChangeCard = (arrow: string) => {
+    switch (arrow) {
+      case "next":
+        if (cardNumber === cards.length - 1) {
+          setCardNumber(0);
+        } else {
+          setCardNumber((prev: number) => prev + 1);
+        }
+        break;
+      case "prev":
+        if (cardNumber === 0) {
+          setCardNumber(cards.length - 1);
+        } else {
+          setCardNumber((prev: number) => prev - 1);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <Head>
@@ -70,7 +93,8 @@ export default function Learn() {
             </div>
           </Flashcard>
         ) : (
-          <>
+          <div className={styles.learnMode}>
+            <PrevArrow handleChangeCard={handleChangeCard} />
             <Flashcard type="learn">
               <div className={styles.front}>
                 <h1>{cards[cardNumber].front}</h1>
@@ -79,7 +103,8 @@ export default function Learn() {
                 <h2>{cards[cardNumber].back}</h2>
               </div>
             </Flashcard>
-          </>
+            <NextArrow handleChangeCard={handleChangeCard} />
+          </div>
         )}
       </main>
     </>

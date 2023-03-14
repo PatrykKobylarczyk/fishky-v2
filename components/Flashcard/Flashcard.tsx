@@ -4,27 +4,28 @@ import styles from "./Flashcard.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 
 const cardVariants = {
-  clicked: {
-    rotateY: 180,
-    transition: { duration: .35 },
-    children: {backfaceVisibility: 'hidden'}
+  active: {
+    rotateY: 180
   },
-  notClicked: {
-    rotateY:0,
-    transition: { duration: .35 },
-    children: {backfaceVisibility: 'hidden'}   
-  }
-}
+  inactive: {
+    rotateY: 0
+  },
+};
 
 const Flashcard = ({ children, type }: any) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
     <AnimatePresence>
+      {}
       <motion.div
-        className={styles.card}
+        className={`${styles.card} ${
+          type === "learn" && styles[isFlipped ? "flipped" : ""]
+        }`}
         onClick={() => type === "learn" && setIsFlipped((prev) => !prev)}
-        // animate={isFlipped ? cardVariants.clicked : cardVariants.notClicked}
+        animate={isFlipped ? "active" : "inactive"}
+        variants={cardVariants}
+        transition={{ duration: .5 }}
       >
         <Logo isFlipped={isFlipped} />
         {children}
