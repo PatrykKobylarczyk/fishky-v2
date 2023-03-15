@@ -7,8 +7,7 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { db, auth } from "../firebase";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { auth } from "../firebase";
 
 interface IAuth {
   user: User | null;
@@ -59,10 +58,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     [auth]
   );
 
-
   const signUp = async (email: string, password: string) => {
     setLoading(true);
-  
 
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential): any => {

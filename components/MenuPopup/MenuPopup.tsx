@@ -15,7 +15,7 @@ const MenuPopup = ({ isOpen, setOpen }: any) => {
   const { logout } = useAuth();
 
   const handleLogOut = () => {
-    logout;
+    logout();
     setOpen((prev: boolean) => !prev);
   };
 
