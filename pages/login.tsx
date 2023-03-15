@@ -38,42 +38,46 @@ const Login = () => {
       </Head>
       <main className={styles.main}>
         <Flashcard>
-          <h1 className={styles.header}>Sign In</h1>
-          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <label htmlFor=""></label>
-              <input
-                type="email"
-                placeholder="email"
-                {...register("email", { required: true })}
-              />
-              {errors.email && <p>Please enter a valid email.</p>}
-            </div>
-
-            <div>
-              <label htmlFor=""></label>
-              <input
-                type="password"
-                placeholder="password"
-                {...register("password", { required: true })}
-              />
-              {errors.password && (
-                <p>Your password must contain at least 4 characters.</p>
-              )}
-            </div>
-            <button type="submit" onClick={() => setLogin(true)}>
-              sign in
-            </button>
-            {error && <p>fill both inputs</p>}
-            <div className={styles.signup}>
+          <div className={styles.container}>
+            <h1 className={styles.header}>Sign In</h1>
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
               <div>
+                <label htmlFor=""></label>
+                <input
+                  type="email"
+                  placeholder="email"
+                  {...register("email", { required: true })}
+                />
+                {errors.email && <p>Please enter a valid email.</p>}
+              </div>
+
+              <div>
+                <label htmlFor=""></label>
+                <input
+                  type="password"
+                  placeholder="password"
+                  {...register("password", { required: true })}
+                />
+                {errors.password && (
+                  <p>Your password must contain at least 4 characters.</p>
+                )}
+              </div>
+              <button type="submit" onClick={() => setLogin(true)}>
+                sign in
+              </button>
+              {error && <p>fill both inputs</p>}
+              <div className={styles.signup}>
                 <span>New to fishky?</span>
-                <button type="submit" className={styles.signUpBtn} onClick={() => setLogin(false)}>
+                <button
+                  type="submit"
+                  className={styles.signUpBtn}
+                  onClick={() => setLogin(false)}
+                >
                   Sign up now.
                 </button>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </Flashcard>
       </main>
     </>
