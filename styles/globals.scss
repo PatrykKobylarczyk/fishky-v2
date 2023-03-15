@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   --max-width: 1100px;
@@ -6,7 +6,7 @@
   --font-mono: ui-monospace, "Plus Jakarta Sans", "Cascadia Mono",
     "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace",
     "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-  --font-primary: "Plus Jakarta Sans";
+  --font-primary: 'Plus Jakarta Sans', sans-serif;
 
   --foreground-hex: #ffffff;
   --background-hex: #201f1f;
