@@ -19,7 +19,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const { signIn, signUp } = useAuth();
+  const { user, signIn, signUp } = useAuth();
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     if (login) {
@@ -28,6 +28,9 @@ const Login = () => {
       await signUp(email, password);
     }
   };
+
+  console.log(user?.email)
+
   return (
     <>
       <Head>

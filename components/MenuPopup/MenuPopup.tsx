@@ -10,7 +10,6 @@ import {
 } from "react-icons/md";
 import useAuth from "hooks/useAuth";
 
-MdOutlineHome;
 const MenuPopup = ({ isOpen, setOpen }: any) => {
   const { logout } = useAuth();
 

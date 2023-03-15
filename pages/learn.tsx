@@ -49,7 +49,6 @@ export default function Learn() {
     }
   };
 
-  console.log(cards)
 
   const handleChangeCard = (arrow: string) => {
     switch (arrow) {
