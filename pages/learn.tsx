@@ -24,10 +24,14 @@ export default function Learn() {
     const currentCategoryCards: any[] = [];
     const docsRef = collection(db, "users", user!.email!, categoryName);
     const docsSnap = await getDocs(docsRef);
-    docsSnap.forEach((doc: any) => {
-      currentCategoryCards.push(doc.data());
-      setCards(currentCategoryCards);
-    });
+    if (docsSnap) {
+      docsSnap.forEach((doc: any) => {
+        currentCategoryCards.push(doc.data());
+        setCards(currentCategoryCards);
+      });
+    } else {
+      console.log("error");
+    }
   };
 
   useEffect(() => {
@@ -44,6 +48,8 @@ export default function Learn() {
       setStartLearning(true);
     }
   };
+
+  console.log(cards)
 
   const handleChangeCard = (arrow: string) => {
     switch (arrow) {
