@@ -56,7 +56,6 @@ const colourStyles = {
 
 const Category = ({ category, setCategory, newCategory, setOptions }: any) => {
   const router = useRouter();
- 
 
   const getOptions = async () => {
     if (options.length == 0) {
@@ -82,9 +81,9 @@ const Category = ({ category, setCategory, newCategory, setOptions }: any) => {
         },
       ]);
     }
-    if ( newCategory &&
-      options.filter((option) => option.value === newCategory).length === 0 
-     
+    if (
+      newCategory &&
+      options.filter((option) => option.value === newCategory).length === 0
     ) {
       setOptions([
         ...options,
@@ -97,7 +96,7 @@ const Category = ({ category, setCategory, newCategory, setOptions }: any) => {
   };
 
   useEffect(() => {
-    getOptions()
+    getOptions();
   }, []);
 
   const handleChange = (option: SelectOptionType | null) => {
@@ -108,7 +107,6 @@ const Category = ({ category, setCategory, newCategory, setOptions }: any) => {
     }
   };
 
-
   return (
     <div className={styles.select}>
       <Select
@@ -116,7 +114,7 @@ const Category = ({ category, setCategory, newCategory, setOptions }: any) => {
         options={options}
         styles={colourStyles}
         onChange={handleChange}
-        placeholder={category}
+        // placeholder={category}
         isClearable
       />
     </div>

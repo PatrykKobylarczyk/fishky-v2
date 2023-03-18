@@ -14,7 +14,7 @@ const MenuPopup = ({ isOpen, setOpen }: any) => {
   const { logout } = useAuth();
 
   const handleLogOut = () => {
-    logout;
+    logout();
     setOpen((prev: boolean) => !prev);
   };
 
@@ -53,7 +53,7 @@ const MenuPopup = ({ isOpen, setOpen }: any) => {
               <MdAddCircleOutline size={"28px"} />
               <p>Create</p>
             </Link>
-            <button onClick={handleLogOut}>
+            <button onClick={() => handleLogOut()}>
               <MdLogout size={"28px"} />
               <p>Sign out</p>
             </button>

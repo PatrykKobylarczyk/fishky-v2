@@ -22,17 +22,23 @@ export default function Create() {
     if (!front || !back) {
       setError(true);
     }
-    if (front && back) {
+    if (category === "add new...") {
+      const cardsRef = collection(db, "users", user!.email!, newCategory);
+      await setDoc(doc(cardsRef), {
+        front: front,
+        back: back,
+      });
+    } else if (front && back) {
       setError(false);
       const cardsRef = collection(db, "users", user!.email!, category);
       await setDoc(doc(cardsRef), {
         front: front,
         back: back,
       });
-      setFront("");
-      setBack("");
-      setBtnPath("/");
     }
+    setFront("");
+    setBack("");
+    setBtnPath("/");
   };
 
   return (
@@ -60,7 +66,7 @@ export default function Create() {
                 name="category"
                 placeholder=" enter new category..."
                 className={styles.category}
-                onChange={(e) => setNewCategory(e.target.value)}
+                onChange={(event) => setNewCategory(event.target.value)}
               ></input>
             )}
             <input
@@ -68,14 +74,14 @@ export default function Create() {
               name="front"
               placeholder=" enter front..."
               className={styles.front}
-              onChange={(e) => setFront(e.target.value)}
+              onChange={(event) => setFront(event.target.value)}
             ></input>
             <input
               type="text"
               name="reverse"
               placeholder="enter reverse..."
               className={styles.back}
-              onChange={(e) => setBack(e.target.value)}
+              onChange={(event) => setBack(event.target.value)}
             ></input>
             <Button
               buttonType="submit"
@@ -83,7 +89,6 @@ export default function Create() {
               buttonText="create"
               btnHandler={handleNewCard}
             />
-            {/* <button type="submit">create</button> */}
             {error && <p>fill both inputs</p>}
           </form>
         </Flashcard>

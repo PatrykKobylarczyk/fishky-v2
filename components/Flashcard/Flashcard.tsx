@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Logo from "components/Logo/Logo";
 import styles from "./Flashcard.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRecoilState } from "recoil";
+import { isCardFlipped } from "atoms/atom";
 
 const cardVariants = {
   active: {
-    rotateY: 180
+    rotateY: 180,
   },
   inactive: {
-    rotateY: 0
+    rotateY: 0,
   },
 };
 
 const Flashcard = ({ children, type }: any) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useRecoilState(isCardFlipped);
 
   return (
     <AnimatePresence>
@@ -25,7 +27,7 @@ const Flashcard = ({ children, type }: any) => {
         onClick={() => type === "learn" && setIsFlipped((prev) => !prev)}
         animate={isFlipped ? "active" : "inactive"}
         variants={cardVariants}
-        transition={{ duration: .5 }}
+        transition={{ duration: 0.5 }}
       >
         <Logo isFlipped={isFlipped} />
         {children}

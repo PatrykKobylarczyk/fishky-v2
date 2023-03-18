@@ -1,75 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import styles from "../styles/Learn.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
 import Category from "components/Category/Category";
 import Button from "components/Button/Button";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
-import useAuth from "hooks/useAuth";
-import PrevArrow from "components/Arrows/PrevArrow";
-import NextArrow from "components/Arrows/NextArrow";
+import { useRecoilState } from "recoil";
+import { selectedCategory, categoryError } from "atoms/atom";
 
 export default function Learn() {
-  const { user } = useAuth();
-  const [category, setCategory] = useState("select category...");
-  const [error, setError] = useState(false);
+  const [category, setCategory] = useRecoilState(selectedCategory);
   const [_, setOptions] = useState<any[]>([]);
-  const [cards, setCards] = useState<any[]>([]);
-  const [startLearning, setStartLearning] = useState<boolean>(false);
-  const [cardNumber, setCardNumber] = useState(0);
-
-  // get cards from firebase
-  const getCards = async (categoryName: string) => {
-    const currentCategoryCards: any[] = [];
-    const docsRef = collection(db, "users", user!.email!, categoryName);
-    const docsSnap = await getDocs(docsRef);
-    if (docsSnap) {
-      docsSnap.forEach((doc: any) => {
-        currentCategoryCards.push(doc.data());
-        setCards(currentCategoryCards);
-      });
-    } else {
-      console.log("error");
-    }
-  };
-
-  useEffect(() => {
-    getCards(category);
-    if (category !== "select category...") {
-      setError(false);
-    }
-  }, [category]);
-
-  const handleStartLearning = () => {
-    if (category === "select category...") {
-      setError(true);
-    } else {
-      setStartLearning(true);
-    }
-  };
-
-
-  const handleChangeCard = (arrow: string) => {
-    switch (arrow) {
-      case "next":
-        if (cardNumber === cards.length - 1) {
-          setCardNumber(0);
-        } else {
-          setCardNumber((prev: number) => prev + 1);
-        }
-        break;
-      case "prev":
-        if (cardNumber === 0) {
-          setCardNumber(cards.length - 1);
-        } else {
-          setCardNumber((prev: number) => prev - 1);
-        }
-        break;
-      default:
-        break;
-    }
-  };
+  const [error, setError] = useRecoilState(categoryError);
 
   return (
     <>
@@ -80,37 +21,21 @@ export default function Learn() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        {!startLearning ? (
-          <Flashcard>
-            <div className={styles.buttons}>
-              <Category
-                category={category}
-                setCategory={setCategory}
-                setOptions={setOptions}
-              />
-              {error && <p className={styles.errorMessage}>select category!</p>}
-              <Button
-                buttonType="button"
-                buttonText="start"
-                btnHandler={handleStartLearning}
-                buttonPath={"/learn"}
-              />
-            </div>
-          </Flashcard>
-        ) : (
-          <div className={styles.learnMode}>
-            <PrevArrow handleChangeCard={handleChangeCard} />
-            <Flashcard type="learn">
-              <div className={styles.front}>
-                <h1>{cards[cardNumber].front}</h1>
-              </div>
-              <div className={styles.back}>
-                <h2>{cards[cardNumber].back}</h2>
-              </div>
-            </Flashcard>
-            <NextArrow handleChangeCard={handleChangeCard} />
+        <Flashcard>
+          <div className={styles.buttons}>
+            <Category
+              category={category}
+              setCategory={setCategory}
+              setOptions={setOptions}
+            />
+            {error && <p className={styles.errorMessage}>select category!</p>}
+            <Button
+              buttonType="button"
+              buttonText="start"
+              buttonPath={"/learning-mode"}
+            />
           </div>
-        )}
+        </Flashcard>
       </main>
     </>
   );
