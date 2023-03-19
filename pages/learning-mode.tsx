@@ -1,4 +1,4 @@
-import React, { useEffect, useState, CSSProperties } from "react";
+import React, { useEffect, useState } from "react";
 import PrevArrow from "components/Arrows/PrevArrow";
 import NextArrow from "components/Arrows/NextArrow";
 import Flashcard from "components/Flashcard/Flashcard";
@@ -10,8 +10,9 @@ import { useRecoilState } from "recoil";
 import { categoryError, selectedCategory, isCardFlipped } from "atoms/atom";
 import CircleLoader from "react-spinners/CircleLoader";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
-const learningMode = () => {
+const LearningMode = () => {
   const { user } = useAuth();
   const [cards, setCards] = useState<any[]>([]);
   const [cardNumber, setCardNumber] = useState(0);
@@ -52,6 +53,8 @@ const learningMode = () => {
     }, 500);
   }, [cardNumber]);
 
+  console.log(category);
+
   const handleChangeCard = (arrow: string) => {
     switch (arrow) {
       case "next":
@@ -61,7 +64,7 @@ const learningMode = () => {
           setCardNumber((prev: number) => prev + 1);
         }
         setIsFlipped(false);
-        setIsCardChanged(true)
+        setIsCardChanged(true);
         break;
       case "prev":
         if (cardNumber === 0) {
@@ -70,7 +73,7 @@ const learningMode = () => {
           setCardNumber((prev: number) => prev - 1);
         }
         setIsFlipped(false);
-        setIsCardChanged(true)
+        setIsCardChanged(true);
         break;
       default:
         break;
@@ -90,7 +93,13 @@ const learningMode = () => {
                 data-testid="loader"
               />
             ) : (
-              <p>no cards yet...</p>
+              <div className={styles.linksContainer}>
+                <p>no cards yet...</p>
+                <div className={styles.links}>
+                  <Link href="/create">add new</Link>
+                  <Link href="/learn">back</Link>
+                </div>
+              </div>
             )}
           </Flashcard>
         </div>
@@ -126,4 +135,4 @@ const learningMode = () => {
   );
 };
 
-export default learningMode;
+export default LearningMode;

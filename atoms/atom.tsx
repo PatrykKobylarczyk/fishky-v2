@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 export const selectedCategory = atom({
-  key: "selectedCategory",
+  key: "category",
   default: "select category...", 
 });
 

@@ -5,12 +5,15 @@ import Flashcard from "components/Flashcard/Flashcard";
 import Category from "components/Category/Category";
 import Button from "components/Button/Button";
 import { useRecoilState } from "recoil";
-import { selectedCategory, categoryError } from "atoms/atom";
+import { categoryError, selectedCategory } from "atoms/atom";
 
 export default function Learn() {
-  const [category, setCategory] = useRecoilState(selectedCategory);
+  // const [category, setCategory] = useRecoilState(selectedCategory);
   const [_, setOptions] = useState<any[]>([]);
   const [error, setError] = useRecoilState(categoryError);
+  const [category] = useRecoilState<any>(selectedCategory);
+
+  console.log(category);
 
   return (
     <>
@@ -23,16 +26,14 @@ export default function Learn() {
       <main className={styles.main}>
         <Flashcard>
           <div className={styles.buttons}>
-            <Category
-              category={category}
-              setCategory={setCategory}
-              setOptions={setOptions}
-            />
+            <Category setOptions={setOptions} />
             {error && <p className={styles.errorMessage}>select category!</p>}
             <Button
               buttonType="button"
               buttonText="start"
-              buttonPath={"/learning-mode"}
+              buttonPath={
+                category === "add new..." ? "/create" : "/learning-mode"
+              }
             />
           </div>
         </Flashcard>

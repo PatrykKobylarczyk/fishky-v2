@@ -7,21 +7,30 @@ import Button from "components/Button/Button";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import useAuth from "hooks/useAuth";
+import { useForm } from "react-hook-form";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+const options = [
+  { value: "english", label: "english" },
+  { value: "react", label: "react" },
+  { value: "add new...", label: "add new..." },
+];
 
 export default function Create() {
-  const [front, setFront] = useState("");
-  const [back, setBack] = useState("");
-  const [error, setError] = useState(false);
-  const [btnPath, setBtnPath] = useState("");
   const [category, setCategory] = useState("select category...");
   const [newCategory, setNewCategory] = useState("");
-  const [options, setOptions] = useState<any[]>([]);
-  const { user } = useAuth();
+  const router = useRouter();
+  // const [options, setOptions] = useState<any[]>([]);
 
-  const handleNewCard = async () => {
-    if (!front || !back) {
-      setError(true);
-    }
+  const { user } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async ({ front, back, category }: any) => {
     if (category === "add new...") {
       const cardsRef = collection(db, "users", user!.email!, newCategory);
       await setDoc(doc(cardsRef), {
@@ -29,16 +38,14 @@ export default function Create() {
         back: back,
       });
     } else if (front && back) {
-      setError(false);
+      setCategory(category);
       const cardsRef = collection(db, "users", user!.email!, category);
       await setDoc(doc(cardsRef), {
         front: front,
         back: back,
       });
     }
-    setFront("");
-    setBack("");
-    setBtnPath("/");
+    router.push("/");
   };
 
   return (
@@ -51,45 +58,41 @@ export default function Create() {
       </Head>
       <main className={styles.main}>
         <Flashcard>
-          <form className={styles.form} onSubmit={handleNewCard}>
-            {category !== "add new..." ? (
-              <Category
-                category={category}
-                setCategory={setCategory}
-                newCategory={newCategory}
-                setOptions={setOptions}
-                cardType="learn"
-              />
-            ) : (
+          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <>
+              {category !== "add new..." ? (
+                <select
+                  className={styles.select}
+                  {...register("category", { required: true })}
+                >
+                  {options.map((el, i) => (
+                    <option key={i} value={el.value}>
+                      {el.label}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type="text"
+                  placeholder=" enter new category..."
+                  {...register("category", { required: true })}
+                ></input>
+              )}
               <input
                 type="text"
-                name="category"
-                placeholder=" enter new category..."
-                className={styles.category}
-                onChange={(event) => setNewCategory(event.target.value)}
-              ></input>
-            )}
-            <input
-              type="text"
-              name="front"
-              placeholder=" enter front..."
-              className={styles.front}
-              onChange={(event) => setFront(event.target.value)}
-            ></input>
-            <input
-              type="text"
-              name="reverse"
-              placeholder="enter reverse..."
-              className={styles.back}
-              onChange={(event) => setBack(event.target.value)}
-            ></input>
-            <Button
-              buttonType="submit"
-              buttonPath={btnPath}
-              buttonText="create"
-              btnHandler={handleNewCard}
-            />
-            {error && <p>fill both inputs</p>}
+                placeholder=" enter front..."
+                {...register("front", { required: true })}
+              />
+              <input
+                type="text"
+                placeholder="enter reverse..."
+                {...register("back", { required: true })}
+              />
+              <button type="submit">create</button>
+              {errors.category || 
+                errors.front ||
+                (errors.back && <p>fill both inputs</p>)}
+            </>
           </form>
         </Flashcard>
       </main>

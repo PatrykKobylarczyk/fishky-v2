@@ -29,8 +29,6 @@ const Login = () => {
     }
   };
 
-  console.log(user?.email)
-
   return (
     <>
       <Head>

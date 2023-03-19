@@ -13,7 +13,7 @@ const Layout = () => {
   return (
     <nav className={styles.navigation}>
       <div className={`${styles.menuIcon} ${isOpen && 'open'}`}>
-        <Hamburger rounded toggled={isOpen} toggle={setOpen} color={isOpen ? '#950000' : 'grey'}/>
+        <Hamburger rounded toggled={isOpen} toggle={setOpen} color={isOpen ? '#9f0140' : 'grey'}/>
       </div>
       <MenuPopup isOpen={isOpen} setOpen={setOpen}/>
     </nav>
