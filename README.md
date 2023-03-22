@@ -2,7 +2,7 @@
 
  An app with popular flashcards for learning languages or whatever category you can think of.
 ## Live
-https://github.com/PatrykKobylarczyk/fishky-v2
+https://fishky-v2.vercel.app/
 
 ## Built with: 
 
