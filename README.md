@@ -15,4 +15,4 @@ https://github.com/PatrykKobylarczyk/fishky-v2
 
 ## Status:
 
-Project is: completed.
+Project is: in progress.
