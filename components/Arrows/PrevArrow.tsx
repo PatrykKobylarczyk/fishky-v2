@@ -1,7 +1,12 @@
 import React from "react";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import styles from "./Arrows.module.scss";
-const PrevArrow = ({ handleChangeCard }: any) => {
+
+interface Props {
+  handleChangeCard: (arg : string) => void;
+};
+
+const PrevArrow = ({ handleChangeCard }: Props) => {
   return (
     <button
       className={styles.arrow}

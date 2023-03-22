@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import Head from "next/head";
 import styles from "../styles/Create.module.scss";
 import Flashcard from "components/Flashcard/Flashcard";
-import Category from "components/Category/Category";
-import Button from "components/Button/Button";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import useAuth from "hooks/useAuth";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 const options = [
@@ -17,11 +14,11 @@ const options = [
   { value: "add new...", label: "add new..." },
 ];
 
+
 export default function Create() {
   const [category, setCategory] = useState("select category...");
   const [newCategory, setNewCategory] = useState("");
   const router = useRouter();
-  // const [options, setOptions] = useState<any[]>([]);
 
   const { user } = useAuth();
   const {
@@ -89,7 +86,7 @@ export default function Create() {
                 {...register("back", { required: true })}
               />
               <button type="submit">create</button>
-              {errors.category || 
+              {errors.category ||
                 errors.front ||
                 (errors.back && <p>fill both inputs</p>)}
             </>

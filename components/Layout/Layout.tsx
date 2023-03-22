@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styles from "./Layout.module.scss";
+
+//LIBS
 import Hamburger from "hamburger-react";
 
 //HOOKS
-import useMediaQuery from "../../hooks/useMediaQuery";
 import MenuPopup from "components/MenuPopup/MenuPopup";
-
 import useAuth from "hooks/useAuth";
+
 const Layout = () => {
   const { user } = useAuth();
-  const isAboveSmallScreens = useMediaQuery("(min-width: 768px)");
   const [isOpen, setOpen] = useState(false);
 
   return (

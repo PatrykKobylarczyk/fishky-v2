@@ -11,7 +11,7 @@ export default function Learn() {
   // const [category, setCategory] = useRecoilState(selectedCategory);
   const [_, setOptions] = useState<any[]>([]);
   const [error, setError] = useRecoilState(categoryError);
-  const [category] = useRecoilState<any>(selectedCategory);
+  const [category] = useRecoilState<string>(selectedCategory);
 
   console.log(category);
 

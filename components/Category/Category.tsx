@@ -36,7 +36,6 @@ const colourStyles = {
   input: (provided: any) => ({
     ...provided,
     margin: "0px",
-    // background: 'blue'
   }),
   valueContainer: (provided: any) => ({
     ...provided,
